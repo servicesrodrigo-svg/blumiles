@@ -1,0 +1,1356 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guia de Viagem Blumiles - EUA 2026</title>
+    
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Lucide Icons CDN -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        blumiles: '#7042f4',
+                        blumilesLight: '#a180f9',
+                        cyanCustom: '#00c6ff',
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        /* Otimizações de renderização */
+        body {
+            font-family: 'Inter', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+        /* Fade-in animation para troca de abas */
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.4s ease-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="bg-white text-slate-800 antialiased min-h-screen flex flex-col justify-between">
+
+    <!-- HEADER EXECUTIVO -->
+    <header class="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-slate-100 px-4 py-4 lg:px-8 shadow-sm">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+            
+            <!-- Logo Blumiles puro e minimalista (Unificado em Violeta sutil do arquivo NEGATIVO BLUMILES) -->
+            <div class="flex items-center space-x-2 cursor-pointer" onclick="switchTab('voos')">
+                <span class="text-2xl font-extrabold tracking-tight text-[#7042f4]">
+                    blumiles
+                </span>
+            </div>
+
+            <!-- Dados rápidos da viagem do casal -->
+            <div class="flex items-center gap-4 text-xs bg-slate-50 px-4 py-2 rounded-xl border border-slate-100">
+                <div class="text-right">
+                    <span class="text-slate-400 block text-[10px] uppercase font-semibold">Passageiros</span>
+                    <span class="text-slate-800 font-bold">Fernanda & Gabriel</span>
+                </div>
+                <div class="h-8 w-[1px] bg-slate-200"></div>
+                <div class="text-left">
+                    <span class="text-slate-400 block text-[10px] uppercase font-semibold">Localizador</span>
+                    <span class="text-[#7042f4] font-mono font-bold tracking-wider">QJQPGL</span>
+                </div>
+            </div>
+
+        </div>
+    </header>
+
+    <!-- MENU DO TOPO EM GRID RESPONSIVO (NÃO BLOQUEIA NO MOBILE) -->
+    <div class="sticky top-[73px] z-40 bg-white border-b border-slate-100 shadow-sm py-3">
+        <div class="max-w-7xl mx-auto px-4 md:px-8">
+            <div class="grid grid-cols-3 md:grid-cols-6 gap-2">
+                
+                <!-- Tab 1: Voos -->
+                <button id="btn-voos" onclick="switchTab('voos')" 
+                    class="tab-btn flex items-center justify-center gap-2 px-2 py-3 rounded-xl text-[11px] font-bold uppercase tracking-wider transition-all duration-300 bg-gradient-to-r from-[#00c6ff] to-[#7042f4] text-white shadow-md">
+                    <i data-lucide="plane" class="h-4 w-4 shrink-0"></i>
+                    <span>Voos</span>
+                </button>
+
+                <!-- Tab 2: Hospedagens -->
+                <button id="btn-hospedagens" onclick="switchTab('hospedagens')" 
+                    class="tab-btn flex items-center justify-center gap-2 px-2 py-3 rounded-xl text-[11px] font-bold uppercase tracking-wider transition-all duration-300 bg-slate-50 hover:bg-slate-100 text-slate-600 hover:text-slate-900 border border-slate-200/50">
+                    <i data-lucide="map-pin" class="h-4 w-4 shrink-0"></i>
+                    <span>Hospedagens</span>
+                </button>
+
+                <!-- Tab 3: Carro (NOVA SEÇÃO) -->
+                <button id="btn-carro" onclick="switchTab('carro')" 
+                    class="tab-btn flex items-center justify-center gap-2 px-2 py-3 rounded-xl text-[11px] font-bold uppercase tracking-wider transition-all duration-300 bg-slate-50 hover:bg-slate-100 text-slate-600 hover:text-slate-900 border border-slate-200/50">
+                    <i data-lucide="key" class="h-4 w-4 shrink-0"></i>
+                    <span>Carro</span>
+                </button>
+
+                <!-- Tab 4: Guia de Compras -->
+                <button id="btn-compras" onclick="switchTab('compras')" 
+                    class="tab-btn flex items-center justify-center gap-2 px-2 py-3 rounded-xl text-[11px] font-bold uppercase tracking-wider transition-all duration-300 bg-slate-50 hover:bg-slate-100 text-slate-600 hover:text-slate-900 border border-slate-200/50">
+                    <i data-lucide="shopping-bag" class="h-4 w-4 shrink-0"></i>
+                    <span>Compras</span>
+                </button>
+
+                <!-- Tab 5: Guia de Trânsito -->
+                <button id="btn-transito" onclick="switchTab('transito')" 
+                    class="tab-btn flex items-center justify-center gap-2 px-2 py-3 rounded-xl text-[11px] font-bold uppercase tracking-wider transition-all duration-300 bg-slate-50 hover:bg-slate-100 text-slate-600 hover:text-slate-900 border border-slate-200/50">
+                    <i data-lucide="car" class="h-4 w-4 shrink-0"></i>
+                    <span>Trânsito</span>
+                </button>
+
+                <!-- Tab 6: Checklist e Finanças -->
+                <button id="btn-checklist" onclick="switchTab('checklist')" 
+                    class="tab-btn flex items-center justify-center gap-2 px-2 py-3 rounded-xl text-[11px] font-bold uppercase tracking-wider transition-all duration-300 bg-slate-50 hover:bg-slate-100 text-slate-600 hover:text-slate-900 border border-slate-200/50">
+                    <i data-lucide="check-square" class="h-4 w-4 shrink-0"></i>
+                    <span>Checklist</span>
+                </button>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- CORPO PRINCIPAL -->
+    <main class="max-w-7xl mx-auto px-4 py-8 lg:px-8 flex-grow w-full">
+
+        <!-- CARD DE CONTAGEM REGRESSIVA COMPARTILHADO -->
+        <div class="mb-8 bg-slate-50 border border-slate-200/80 rounded-2xl p-5 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div class="flex items-center space-x-3 text-left">
+                <div class="bg-[#00c6ff]/10 p-2.5 rounded-xl">
+                    <i data-lucide="clock" class="text-[#00c6ff] h-5 w-5 shrink-0"></i>
+                </div>
+                <div>
+                    <span class="text-[10px] text-slate-450 uppercase font-bold block">Embarque em Navegantes</span>
+                    <span class="text-sm text-slate-700 font-medium">03 de Agosto de 2026 às 18:20 (LA 3779)</span>
+                </div>
+            </div>
+            <div class="flex items-center gap-3">
+                <span class="text-xs font-bold text-slate-500 uppercase">Contagem Regressiva:</span>
+                <div class="flex gap-1 text-xs text-slate-800 font-extrabold bg-white px-3 py-2 rounded-xl border border-slate-200 shadow-sm">
+                    <span id="days" class="text-[#00c6ff]">00d</span>
+                    <span class="text-slate-300">:</span>
+                    <span id="hours" class="text-[#7042f4]">00h</span>
+                    <span class="text-slate-300">:</span>
+                    <span id="minutes" class="text-[#00c6ff]">00m</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================== -->
+        <!-- SEÇÃO 1: VOOS -->
+        <!-- ============================================== -->
+        <div id="tab-voos" class="tab-content active space-y-6">
+            <div class="flex items-center space-x-3 mb-2">
+                <div class="bg-[#00c6ff]/10 p-3 rounded-xl">
+                    <i data-lucide="plane" class="h-6 w-6 text-[#00c6ff]"></i>
+                </div>
+                <div>
+                    <h2 class="text-2xl font-black text-slate-900">Roteiro de Voos & Passagens</h2>
+                    <p class="text-slate-450 text-xs uppercase font-bold tracking-wider">Passagens Emitidas em Classe Executiva/Econômica</p>
+                </div>
+            </div>
+            <p class="text-slate-500 text-sm leading-relaxed">
+                Consolidação de todos os trechos aéreos emitidos para o casal, coletados diretamente dos documentos oficiais <strong class="text-slate-700">"Gabriel e Fernanda EUA 2026 (1).pdf"</strong> e <strong class="text-slate-700">"USA 2026 Gabriel & Fernanda.pdf"</strong>.
+            </p>
+
+            <div class="relative border-l-2 border-slate-100 pl-6 ml-4 space-y-8 py-4">
+                
+                <!-- TRECHO 1 -->
+                <div class="relative">
+                    <div class="absolute -left-[31px] top-1.5 bg-[#00c6ff] rounded-full w-4 h-4 border-4 border-white"></div>
+                    <div class="bg-slate-50 border border-slate-200/80 rounded-2xl p-6 shadow-sm hover:border-cyan-300 transition-all">
+                        <div class="flex flex-wrap justify-between items-center gap-4 mb-4 border-b border-slate-200/50 pb-3">
+                            <div>
+                                <span class="text-[10px] font-bold text-white bg-gradient-to-r from-[#00c6ff] to-[#7042f4] px-2.5 py-1 rounded-full uppercase tracking-wider">Trecho 1 - Nacional</span>
+                                <h3 class="text-lg font-extrabold text-slate-900 mt-2">Navegantes (NVT) ➔ São Paulo (GRU)</h3>
+                            </div>
+                            <div class="text-right">
+                                <span class="text-[10px] text-slate-400 block font-bold uppercase">Voo & Operadora</span>
+                                <span class="text-xs font-bold text-slate-700">LATAM Airlines | LA 3779</span>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 text-xs">
+                            <div>
+                                <span class="text-slate-400 block text-[10px] uppercase font-bold">Partida NVT</span>
+                                <span class="font-bold text-slate-800 block">03 AGO 2026 — 18:20</span>
+                            </div>
+                            <div>
+                                <span class="text-slate-400 block text-[10px] uppercase font-bold">Chegada GRU</span>
+                                <span class="font-bold text-slate-800 block">03 AGO 2026 — 19:40</span>
+                            </div>
+                            <div>
+                                <span class="text-slate-400 block text-[10px] uppercase font-bold">Bagagem Despachada</span>
+                                <span class="font-bold text-emerald-500 block">1 Peça (Até 23kg)</span>
+                            </div>
+                            <div>
+                                <span class="text-slate-400 block text-[10px] uppercase font-bold">Aeronave</span>
+                                <span class="font-bold text-slate-700 block">Airbus A320</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CONEXÃO GRU -->
+                <div class="relative">
+                    <div class="absolute -left-[31px] top-1.5 bg-slate-200 rounded-full w-4 h-4 border-4 border-white"></div>
+                    <div class="bg-slate-50 border border-slate-200/40 rounded-xl p-4 flex items-center space-x-3 text-slate-500 text-xs shadow-sm">
+                        <div class="bg-slate-100 p-2 rounded-lg">
+                            <i data-lucide="clock" class="text-[#7042f4] h-5 w-5 shrink-0"></i>
+                        </div>
+                        <span><strong>Conexão em Guarulhos (GRU):</strong> Duração de <strong>03h 20m</strong>. Tempo ideal para transferirem-se ao Terminal Internacional (Terminal 3).</span>
+                    </div>
+                </div>
+
+                <!-- TRECHO 2 -->
+                <div class="relative">
+                    <div class="absolute -left-[31px] top-1.5 bg-[#7042f4] rounded-full w-4 h-4 border-4 border-white"></div>
+                    <div class="bg-slate-50 border border-slate-200/80 rounded-2xl p-6 shadow-sm hover:border-purple-300 transition-all">
+                        <div class="flex flex-wrap justify-between items-center gap-4 mb-4 border-b border-slate-200/50 pb-3">
+                            <div>
+                                <span class="text-[10px] font-bold text-white bg-gradient-to-r from-[#00c6ff] to-[#7042f4] px-2.5 py-1 rounded-full uppercase tracking-wider">Trecho 2 - Internacional</span>
+                                <h3 class="text-lg font-extrabold text-slate-900 mt-2">São Paulo (GRU) ➔ Miami (MIA)</h3>
+                            </div>
+                            <div class="text-right">
+                                <span class="text-[10px] text-slate-400 block font-bold uppercase">Voo & Operadora</span>
+                                <span class="text-xs font-bold text-slate-700">LATAM Airlines | LA 8190</span>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 text-xs">
+                            <div>
+                                <span class="text-slate-400 block text-[10px] uppercase font-bold">Partida GRU</span>
+                                <span class="font-bold text-slate-800 block">03 AGO 2026 — 23:00</span>
+                            </div>
+                            <div>
+                                <span class="text-slate-400 block text-[10px] uppercase font-bold">Chegada MIA</span>
+                                <span class="font-bold text-slate-800 block">04 AGO 2026 — 06:25</span>
+                            </div>
+                            <div>
+                                <span class="text-slate-400 block text-[10px] uppercase font-bold">Bagagem</span>
+                                <span class="font-bold text-emerald-500 block">1 Peça (Até 23kg)</span>
+                            </div>
+                            <div>
+                                <span class="text-slate-400 block text-[10px] uppercase font-bold">Aeronave</span>
+                                <span class="font-bold text-slate-700 block">Boeing 787-9</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TRECHO 3 -->
+                <div class="relative">
+                    <div class="absolute -left-[31px] top-1.5 bg-[#00c6ff] rounded-full w-4 h-4 border-4 border-white"></div>
+                    <div class="bg-slate-50 border border-slate-200/80 rounded-2xl p-6 shadow-sm hover:border-cyan-300 transition-all">
+                        <div class="flex flex-wrap justify-between items-center gap-4 mb-4 border-b border-slate-200/50 pb-3">
+                            <div>
+                                <span class="text-[10px] font-bold text-white bg-[#7042f4] px-2.5 py-1 rounded-full uppercase tracking-wider">Trecho 3 - Interno EUA</span>
+                                <h3 class="text-lg font-extrabold text-slate-900 mt-2">Miami (MIA) ➔ Nova York (LGA)</h3>
+                            </div>
+                            <div class="text-right">
+                                <span class="text-[10px] text-slate-400 block font-bold uppercase">Voo & Operadora</span>
+                                <span class="text-xs font-bold text-slate-700">American Airlines | AA 2424</span>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 text-xs">
+                            <div>
+                                <span class="text-slate-400 block text-[10px] uppercase font-bold">Partida MIA</span>
+                                <span class="font-bold text-slate-800 block">08 AGO 2026 — 10:16</span>
+                            </div>
+                            <div>
+                                <span class="text-slate-400 block text-[10px] uppercase font-bold">Chegada LGA</span>
+                                <span class="font-bold text-slate-800 block">08 AGO 2026 — 13:27</span>
+                            </div>
+                            <div>
+                                <span class="text-slate-400 block text-[10px] uppercase font-bold">Web Check-in</span>
+                                <span class="font-mono font-bold text-[#7042f4] block">EPJLIQ</span>
+                            </div>
+                            <div>
+                                <span class="text-slate-400 block text-[10px] uppercase font-bold">Franquia de Mala</span>
+                                <span class="font-bold text-emerald-500 block">Inclui Bagagem Despachada</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TRECHO 4 -->
+                <div class="relative">
+                    <div class="absolute -left-[31px] top-1.5 bg-[#7042f4] rounded-full w-4 h-4 border-4 border-white"></div>
+                    <div class="bg-slate-50 border border-slate-200/80 rounded-2xl p-6 shadow-sm hover:border-purple-300 transition-all">
+                        <div class="flex flex-wrap justify-between items-center gap-4 mb-4 border-b border-slate-200/50 pb-3">
+                            <div>
+                                <span class="text-[10px] font-bold text-white bg-[#00c6ff] px-2.5 py-1 rounded-full uppercase tracking-wider">Trecho 4 - Costa Oeste</span>
+                                <h3 class="text-lg font-extrabold text-slate-900 mt-2">Nova York (JFK) ➔ Los Angeles (LAX)</h3>
+                            </div>
+                            <div class="text-right">
+                                <span class="text-[10px] text-slate-400 block font-bold uppercase">Voo & Operadora</span>
+                                <span class="text-xs font-bold text-slate-700">American Airlines | AA 341</span>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 text-xs">
+                            <div>
+                                <span class="text-slate-400 block text-[10px] uppercase font-bold">Partida JFK</span>
+                                <span class="font-bold text-slate-800 block">12 AGO 2026 — 15:30</span>
+                            </div>
+                            <div>
+                                <span class="text-slate-400 block text-[10px] uppercase font-bold">Chegada LAX</span>
+                                <span class="font-bold text-slate-800 block">12 AGO 2026 — 18:35</span>
+                            </div>
+                            <div>
+                                <span class="text-slate-400 block text-[10px] uppercase font-bold">Web Check-in</span>
+                                <span class="font-mono font-bold text-[#7042f4] block">EPJLIQ</span>
+                            </div>
+                            <div>
+                                <span class="text-slate-400 block text-[10px] uppercase font-bold">Classe de Viagem</span>
+                                <span class="font-bold text-slate-700 block">Econômica Convencional</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- RETORNO AO BRASIL -->
+                <div class="relative">
+                    <div class="absolute -left-[31px] top-1.5 bg-slate-300 rounded-full w-4 h-4 border-4 border-white"></div>
+                    <div class="bg-slate-50 border border-slate-200/60 rounded-xl p-5 flex flex-col space-y-2 text-slate-500 text-xs shadow-sm">
+                        <div class="flex items-center space-x-2 text-slate-800 font-bold">
+                            <div class="bg-[#00c6ff]/10 p-1 rounded-lg">
+                                <i data-lucide="plane" class="h-4 w-4 text-[#00c6ff]"></i>
+                            </div>
+                            <span>Trechos de Retorno (16 e 17 AGO 2026)</span>
+                        </div>
+                        <p>O vôo de volta inicia em LAX no dia 16 AGO às 15:55, com conexão em Santiago (SCL) de 2h 40m, seguida do vôo SCL ➔ GRU (Voo LA 754), conexão em GRU de 3h 10m, e trecho final GRU ➔ NVT (Voo LA 3778) pousando no dia 17 AGO às 17:30.</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- ============================================== -->
+        <!-- SEÇÃO 2: HOSPEDAGENS -->
+        <!-- ============================================== -->
+        <div id="tab-hospedagens" class="tab-content space-y-8">
+            <div class="flex items-center space-x-3 mb-2">
+                <div class="bg-[#7042f4]/10 p-3 rounded-xl">
+                    <i data-lucide="map-pin" class="h-6 w-6 text-[#7042f4]"></i>
+                </div>
+                <div>
+                    <h2 class="text-2xl font-black text-slate-900">Residências & Hotéis</h2>
+                    <p class="text-slate-450 text-xs uppercase font-bold tracking-wider">Hospedagens Confirmadas Pela Blumiles</p>
+                </div>
+            </div>
+            <p class="text-slate-500 text-sm leading-relaxed">
+                Consolidação de hotéis reservados para a viagem, com localizações exatas, taxas de resorts e políticas importantes, retiradas diretamente dos documentos <strong class="text-slate-700">"Gabriel e Fernanda EUA 2026 (1).pdf"</strong> e <strong class="text-slate-700">"USA 2026 Gabriel & Fernanda.pdf"</strong>.
+            </p>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                
+                <!-- HOTEL CHELSEA (MIAMI) -->
+                <div class="bg-slate-50 border border-slate-200/80 rounded-2xl p-6 flex flex-col justify-between space-y-6 shadow-sm hover:border-[#00c6ff] transition-all">
+                    <div class="space-y-4">
+                        <div class="flex justify-between items-start">
+                            <span class="text-[10px] font-bold text-[#00c6ff] bg-[#00c6ff]/10 px-2.5 py-1 rounded-full uppercase tracking-wider">Miami Beach</span>
+                            <span class="text-xs text-slate-400 font-bold">4 Noites</span>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-extrabold text-slate-900">Hotel Chelsea</h3>
+                            <p class="text-xs text-[#7042f4] font-medium mt-1">944 Washington Ave, Miami Beach, FL 33139</p>
+                        </div>
+                        
+                        <div class="space-y-2 text-xs border-t border-slate-200/50 pt-3">
+                            <div class="flex justify-between">
+                                <span class="text-slate-500">Check-in:</span>
+                                <strong class="text-slate-800">Ter, 04 Ago 2026 (16h)</strong>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-slate-500">Check-out:</span>
+                                <strong class="text-slate-800">Sáb, 08 Ago 2026 (11h)</strong>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-slate-500">Acomodação:</span>
+                                <strong class="text-slate-800">Standard King Room</strong>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white p-4 rounded-xl border border-slate-200/60 space-y-2 shadow-inner">
+                        <span class="text-[10px] font-bold text-rose-500 block uppercase">Taxas Adicionais</span>
+                        <p class="text-xs text-slate-600 leading-relaxed">Resort Fee: R$ 735,12 (US$ 15.00 + impostos/dia) pagos diretamente no hotel.</p>
+                    </div>
+                </div>
+
+                <!-- OYO TIMES SQUARE (NY) -->
+                <div class="bg-slate-50 border border-slate-200/80 rounded-2xl p-6 flex flex-col justify-between space-y-6 shadow-sm hover:border-[#7042f4] transition-all">
+                    <div class="space-y-4">
+                        <div class="flex justify-between items-start">
+                            <span class="text-[10px] font-bold text-[#7042f4] bg-[#7042f4]/10 px-2.5 py-1 rounded-full uppercase tracking-wider">Nova York</span>
+                            <span class="text-xs text-slate-400 font-bold">4 Noites</span>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-extrabold text-slate-900">OYO Times Square</h3>
+                            <p class="text-xs text-[#7042f4] font-medium mt-1">157 West 47th Street, New York, NY 10036</p>
+                        </div>
+                        
+                        <div class="space-y-2 text-xs border-t border-slate-200/50 pt-3">
+                            <div class="flex justify-between">
+                                <span class="text-slate-500">Check-in:</span>
+                                <strong class="text-slate-800">Sáb, 08 Ago 2026 (15h)</strong>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-slate-500">Check-out:</span>
+                                <strong class="text-slate-800">Qua, 12 Ago 2026 (12h)</strong>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-slate-500">Acomodação:</span>
+                                <strong class="text-slate-800">Quarto Luxo, 1 Cama King</strong>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white p-4 rounded-xl border border-slate-200/60 space-y-2 shadow-inner">
+                        <span class="text-[10px] font-bold text-rose-500 block uppercase">Taxas Adicionais</span>
+                        <p class="text-xs text-slate-600 leading-relaxed">Resort Fee: US$ 44.75 por noite + Depósito caução de US$ 100 no check-in.</p>
+                    </div>
+                </div>
+
+                <!-- THE ADLER HOTEL (LA) -->
+                <div class="bg-slate-50 border border-slate-200/80 rounded-2xl p-6 flex flex-col justify-between space-y-6 shadow-sm hover:border-[#00c6ff] transition-all">
+                    <div class="space-y-4">
+                        <div class="flex justify-between items-start">
+                            <span class="text-[10px] font-bold text-cyan-500 bg-cyan-100/50 px-2.5 py-1 rounded-full uppercase tracking-wider">Los Angeles</span>
+                            <span class="text-xs text-slate-400 font-bold">4 Noites</span>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-extrabold text-slate-900">The Adler Hotel</h3>
+                            <p class="text-xs text-[#7042f4] font-medium mt-1">6141 Franklin Avenue, Hollywood, CA 90028</p>
+                        </div>
+                        
+                        <div class="space-y-2 text-xs border-t border-slate-200/50 pt-3">
+                            <div class="flex justify-between">
+                                <span class="text-slate-500">Check-in:</span>
+                                <strong class="text-slate-800">Qua, 12 Ago 2026 (15h)</strong>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-slate-500">Check-out:</span>
+                                <strong class="text-slate-800">Dom, 16 Ago 2026 (11h)</strong>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-slate-500">Acomodação:</span>
+                                <strong class="text-slate-800">Standard Room, 2 Camas Queen</strong>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white p-4 rounded-xl border border-slate-200/60 space-y-2 shadow-inner">
+                        <span class="text-[10px] font-bold text-rose-500 block uppercase">Taxas Adicionais</span>
+                        <p class="text-xs text-slate-600 leading-relaxed">Resort Fee: R$ 214,95 (US$ 5.00 por noite) + taxas de estacionamento adicionais.</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- ============================================== -->
+        <!-- SEÇÃO 3: CARRO (NOVA SEÇÃO) -->
+        <!-- ============================================== -->
+        <div id="tab-carro" class="tab-content space-y-8">
+            <div class="flex items-center space-x-3 mb-2">
+                <div class="bg-[#00c6ff]/10 p-3 rounded-xl">
+                    <i data-lucide="key" class="h-6 w-6 text-[#00c6ff]"></i>
+                </div>
+                <div>
+                    <h2 class="text-2xl font-black text-slate-900">Aluguel do Veículo</h2>
+                    <p class="text-slate-450 text-xs uppercase font-bold tracking-wider">Confirmação de Reserva de Carro no Destino Los Angeles</p>
+                </div>
+            </div>
+            <p class="text-slate-500 text-sm leading-relaxed">
+                Detalhes do contrato de locação de veículo premium com a locadora <strong>Avis</strong> em Los Angeles, consolidado diretamente das informações de voucher do documento <strong class="text-slate-700">"Gabriel e Fernanda EUA 2026 (1).pdf"</strong>.
+            </p>
+
+            <!-- VOUCHER INTEGRAL DE ALUGUEL -->
+            <div class="bg-slate-50 border border-slate-200/80 rounded-2xl p-6 shadow-sm">
+                
+                <div class="flex flex-wrap justify-between items-center gap-4 mb-6 border-b border-slate-200/50 pb-4">
+                    <div>
+                        <span class="text-[10px] font-bold text-white bg-[#7042f4] px-3 py-1 rounded-full uppercase tracking-wider">Locadora AVIS (LAX)</span>
+                        <h3 class="text-xl font-black text-slate-900 mt-2">Tesla Model 3 ou similar (Elétrico)</h3>
+                        <p class="text-xs text-[#00c6ff] font-semibold mt-1">Carro Médio • Transmissão Automática • Quilometragem Ilimitada</p>
+                    </div>
+                    <div class="text-left md:text-right space-y-1">
+                        <div class="text-xs"><span class="text-slate-400 uppercase font-bold">Nº de Reserva:</span> <strong class="text-slate-850">673364348800</strong></div>
+                        <div class="text-xs"><span class="text-slate-400 uppercase font-bold">Nº de Aluguel:</span> <strong class="text-slate-850">17510697BR1</strong></div>
+                        <div class="text-xs"><span class="text-slate-400 uppercase font-bold">Nº de Conta Avis:</span> <strong class="text-slate-850">768000103426</strong></div>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+                    
+                    <!-- COL 1: RETIRADA & DEVOLUÇÃO -->
+                    <div class="bg-white p-4 rounded-xl border border-slate-200/80 space-y-4">
+                        <h4 class="text-xs font-extrabold text-[#7042f4] uppercase tracking-wider flex items-center gap-1">
+                            <i data-lucide="calendar" class="h-4 w-4"></i> Cronograma de Locação
+                        </h4>
+                        
+                        <div class="space-y-3 text-xs">
+                            <div>
+                                <span class="text-slate-400 block font-bold uppercase">Retirada (Pick Up)</span>
+                                <strong class="text-slate-850">Qua, 12 Ago 2026 — 20:00 hs</strong>
+                                <span class="text-slate-500 block">Aeroporto Internacional Los Angeles (LAX)</span>
+                            </div>
+                            <div>
+                                <span class="text-slate-400 block font-bold uppercase">Devolução (Drop Off)</span>
+                                <strong class="text-slate-850">Dom, 16 Ago 2026 — 11:00 hs</strong>
+                                <span class="text-slate-500 block">Aeroporto Internacional Los Angeles (LAX)</span>
+                            </div>
+                            <div>
+                                <span class="text-slate-400 block font-bold uppercase">Modalidade:</span>
+                                <span class="text-slate-600">Transporte da Avis à agência (Shuttle Aeroporto)</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- COL 2: CONDUTORES & PAGAMENTO -->
+                    <div class="bg-white p-4 rounded-xl border border-slate-200/80 space-y-4">
+                        <h4 class="text-xs font-extrabold text-[#7042f4] uppercase tracking-wider flex items-center gap-1">
+                            <i data-lucide="user" class="h-4 w-4"></i> Dados do Condutor & Faturamento
+                        </h4>
+                        
+                        <div class="space-y-3 text-xs">
+                            <div>
+                                <span class="text-slate-400 block font-bold uppercase">Titular / Condutor</span>
+                                <strong class="text-slate-850 block">Gabriel Vinício Booz</strong>
+                            </div>
+                            <div>
+                                <span class="text-slate-400 block font-bold uppercase">Duração do Aluguel</span>
+                                <strong class="text-slate-850 block">4 Dias Consecutivos</strong>
+                            </div>
+                            <div>
+                                <span class="text-slate-400 block font-bold uppercase">Modalidade de Pagamento</span>
+                                <span class="text-slate-600 block">Pré-pago com cartão MasterCard Crédito final "3683"</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- COL 3: SEGUROS & CAPACIDADE -->
+                    <div class="bg-white p-4 rounded-xl border border-slate-200/80 space-y-4">
+                        <h4 class="text-xs font-extrabold text-[#7042f4] uppercase tracking-wider flex items-center gap-1">
+                            <i data-lucide="shield" class="h-4 w-4"></i> Seguro & Capacidade
+                        </h4>
+                        
+                        <div class="space-y-3 text-xs">
+                            <div class="text-emerald-600 space-y-1">
+                                <span class="text-slate-450 block font-bold uppercase">Proteções Inclusas:</span>
+                                <div class="flex items-center gap-1 font-bold">
+                                    <i data-lucide="check" class="h-3.5 w-3.5 shrink-0"></i> Cobertura Dano/Roubo Franquia Zero
+                                </div>
+                                <div class="flex items-center gap-1 font-bold">
+                                    <i data-lucide="check" class="h-3.5 w-3.5 shrink-0"></i> Responsabilidade Civil Mínima
+                                </div>
+                                <div class="flex items-center gap-1 font-bold text-[#7042f4]">
+                                    <i data-lucide="check" class="h-3.5 w-3.5 shrink-0"></i> Cobertura RentalCover ativa
+                                </div>
+                            </div>
+                            
+                            <div class="border-t border-slate-100 pt-2 flex justify-between text-slate-500 font-bold">
+                                <span>👥 5 Assentos</span>
+                                <span>🧳 1 Grande + 2 Pequenas</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- ALERTA CRUCIAL DE BANCOS TRADICIONAIS (NÃO PRÉ-PAGOS) -->
+                <div class="bg-rose-50 border border-rose-200 rounded-xl p-5 flex items-start space-x-3 text-xs">
+                    <div class="bg-rose-100 p-2 rounded-lg text-rose-600 shrink-0">
+                        <i data-lucide="alert-triangle" class="h-5 w-5"></i>
+                    </div>
+                    <div class="space-y-1.5 text-rose-800">
+                        <strong class="text-rose-900 block font-bold uppercase tracking-wider">Atenção Extremamente Importante - Documentação e Garantia</strong>
+                        <p class="leading-relaxed">
+                            No momento de retirar o veículo, o motorista (Gabriel) deverá apresentar obrigatoriamente a sua <strong>habilitação física brasileira válida (CNH)</strong>, um documento oficial (passaporte/identidade) e um <strong>cartão de crédito internacional físico em seu nome emitido por bancos tradicionais</strong> (como Itaú, Bradesco, Santander, etc.) para o bloqueio de garantia de segurança (caução).
+                        </p>
+                        <p class="font-bold underline leading-relaxed">
+                            A locadora AVIS não aceita cartões pré-pagos ou cartões de bancos digitais (como Wise ou Nomad) para a realização desse bloqueio de garantia física.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- ALERTAS ADICIONAIS -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4 text-xs">
+                    <div class="bg-amber-50 border border-amber-200 rounded-xl p-4 text-amber-800 space-y-1">
+                        <strong class="font-bold block uppercase">Taxa Jovem (Underage Fee)</strong>
+                        <p>Caso o motorista principal tenha entre 21 e 24 anos, a agência Avis cobrará uma taxa extra de condutor jovem no balcão no momento da retirada do veículo.</p>
+                    </div>
+                    <div class="bg-slate-100 border border-slate-200 rounded-xl p-4 text-slate-700 space-y-1">
+                        <strong class="font-bold block uppercase">Políticas de Cancelamento & Tolerância</strong>
+                        <p>Cancelamento sem custos garantido em até 24 horas antes do retiro. O não comparecimento ou cancelamento fora do prazo resulta na ausência de reembolso.</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- ============================================== -->
+        <!-- SEÇÃO 4: GUIA DE COMPRAS -->
+        <!-- ============================================== -->
+        <div id="tab-compras" class="tab-content space-y-8">
+            
+            <!-- CABEÇALHO -->
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-100 pb-5">
+                <div class="flex items-center space-x-3">
+                    <div class="bg-[#00c6ff]/10 p-3 rounded-xl">
+                        <i data-lucide="shopping-bag" class="h-6 w-6 text-[#00c6ff]"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-2xl font-black text-slate-900">Guia de Compras: Miami</h2>
+                        <p class="text-slate-450 text-xs font-bold uppercase tracking-wider">Segredos Locais, Farmácias e Grandes Outlets</p>
+                    </div>
+                </div>
+                <div class="bg-gradient-to-r from-[#00c6ff]/10 to-[#7042f4]/10 border border-[#00c6ff]/20 px-4 py-2 rounded-xl text-xs text-[#7042f4] font-bold self-start md:self-auto">
+                    🇺🇸 Taxa Comercial (Sales Tax) em Miami: 7%
+                </div>
+            </div>
+
+            <!-- SEÇÃO 1: COMPARATIVO OUTLETS -->
+            <div class="space-y-4">
+                <h3 class="text-lg font-black text-slate-900 flex items-center gap-2">
+                    <div class="bg-[#00c6ff]/10 p-1.5 rounded-lg">
+                        <i data-lucide="sparkles" class="text-[#00c6ff] h-5 w-5"></i>
+                    </div>
+                    Sawgrass Mills contra Dolphin Mall
+                </h3>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <!-- OUTLET 1: Sawgrass -->
+                    <div class="bg-slate-50 border border-slate-200/80 rounded-2xl p-6 space-y-4 shadow-sm hover:border-[#00c6ff]/40 transition-all">
+                        <div class="flex justify-between items-start">
+                            <h4 class="text-base font-extrabold text-slate-800">Sawgrass Mills (Sunrise)</h4>
+                            <span class="text-[10px] font-mono text-[#00c6ff] bg-[#00c6ff]/10 px-2 py-0.5 rounded border border-[#00c6ff]/10">
+                                Aprox. 45 a 60 min
+                            </span>
+                        </div>
+                        <p class="text-xs text-slate-600 leading-relaxed">O segundo maior outlet do mundo e o principal da Flórida. Essencial para grandes compras de roupas de marca.</p>
+                        
+                        <div class="space-y-3 pt-3 border-t border-slate-200/60 text-xs">
+                            <div>
+                                <strong class="text-emerald-600 text-[10px] uppercase tracking-wider block font-bold">O que vale a pena (Prós)</strong>
+                                <p class="text-slate-600">Preços imbatíveis com descontos reais de fábrica, ala de luxo "The Colonnade", única Sephora Outlet do estado.</p>
+                            </div>
+                            <div>
+                                <strong class="text-rose-600 text-[10px] uppercase tracking-wider block font-bold">O que cansa (Contras)</strong>
+                                <p class="text-slate-600">Absurdamente gigantesco (exige um dia inteiro e caminhada exaustiva).</p>
+                            </div>
+                            <div class="bg-white p-3 rounded-xl border border-slate-200 text-slate-700 leading-relaxed shadow-sm">
+                                <strong class="text-[#7042f4] block text-[10px] uppercase tracking-wider mb-1 font-extrabold">Dica Blumiles Concierge:</strong>
+                                Adquira a mala de rodinhas logo na primeira loja (como Samsonite ou Ross) para carregar as compras com facilidade.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- OUTLET 2: Dolphin -->
+                    <div class="bg-slate-50 border border-slate-200/80 rounded-2xl p-6 space-y-4 shadow-sm hover:border-[#00c6ff]/40 transition-all">
+                        <div class="flex justify-between items-start">
+                            <h4 class="text-base font-extrabold text-slate-800">Dolphin Mall (Doral)</h4>
+                            <span class="text-[10px] font-mono text-[#00c6ff] bg-[#00c6ff]/10 px-2 py-0.5 rounded border border-[#00c6ff]/10">
+                                Aprox. 20 a 30 min
+                            </span>
+                        </div>
+                        <p class="text-xs text-slate-600 leading-relaxed">Rápido, prático e muito mais próximo de Miami Beach.</p>
+                        
+                        <div class="space-y-3 pt-3 border-t border-slate-200/60 text-xs">
+                            <div>
+                                <strong class="text-emerald-600 text-[10px] uppercase tracking-wider block font-bold">O que vale a pena (Prós)</strong>
+                                <p class="text-slate-600">Extremamente organizado, possui todas as marcas essenciais (Nike, Tommy, Calvin Klein, GAP, Victoria's Secret) e lojas Ross e Marshalls acopladas.</p>
+                            </div>
+                            <div>
+                                <strong class="text-rose-600 text-[10px] uppercase tracking-wider block font-bold">O que cansa (Contras)</strong>
+                                <p class="text-slate-600">Não possui lojas de alta costura de luxo como o Sawgrass.</p>
+                            </div>
+                            <div class="bg-white p-3 rounded-xl border border-slate-200 text-slate-700 leading-relaxed shadow-sm">
+                                <strong class="text-[#7042f4] block text-[10px] uppercase tracking-wider mb-1 font-extrabold">Dica Blumiles Concierge:</strong>
+                                Ideal para um turno de compras focado e rápido, sem perder o dia inteiro de praia.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SEÇÃO 2: LOJAS DE GARIMPO (OFF-PRICE) -->
+            <div class="space-y-4">
+                <h3 class="text-lg font-black text-slate-900 flex items-center gap-2">
+                    <div class="bg-[#7042f4]/10 p-1.5 rounded-lg">
+                        <i data-lucide="dollar-sign" class="text-[#7042f4] h-5 w-5"></i>
+                    </div>
+                    Lojas de Departamento Off-Price: Como Garimpar Roupas Baratas
+                </h3>
+                <p class="text-xs text-slate-550 max-w-2xl font-medium">
+                    Essas megastores recebem estoques excedentes de coleções recentes de marcas de luxo e as remarcam com até 80% de desconto. São 100% autênticas.
+                </p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <!-- TJ MAXX -->
+                    <div class="bg-slate-50 border border-slate-200/80 rounded-2xl p-5 flex flex-col justify-between shadow-sm hover:border-[#7042f4]/40 transition-all">
+                        <div class="space-y-3">
+                            <div class="flex justify-between items-center text-[10px] font-mono">
+                                <span class="text-[#00c6ff] font-bold">★★★★★ (A mais organizada)</span>
+                                <span class="bg-white border border-slate-200 px-2 py-0.5 rounded text-slate-600 font-bold">T.J. Maxx</span>
+                            </div>
+                            <h4 class="font-extrabold text-slate-900 text-sm">T.J. Maxx (South Beach)</h4>
+                            <p class="text-xs text-slate-500 flex items-start gap-1">
+                                <i data-lucide="map-pin" class="h-3.5 w-3.5 text-[#00c6ff] shrink-0 mt-0.5"></i>
+                                <span>1149 5th St, Miami Beach, FL 33139</span>
+                            </p>
+                            <div class="bg-white p-3 rounded-lg text-xs border border-slate-200 shadow-inner">
+                                <span class="text-[#7042f4] font-bold block text-[10px] uppercase tracking-wider mb-1">Especialidade:</span>
+                                <p class="text-slate-600 text-xs leading-relaxed">Cosméticos de luxo, roupas masculinas/femininas de grife e malas.</p>
+                            </div>
+                        </div>
+                        <div class="mt-4 pt-3 border-t border-slate-200/60 text-[11px] text-slate-500 italic">
+                            Possui uma excelente seção de beleza onde chegam Shiseido, Anastasia BH, Clinique, Lancôme e maquiagens importadas a preço de banana. Fica a 5 minutos do seu hotel.
+                        </div>
+                    </div>
+
+                    <!-- ROSS -->
+                    <div class="bg-slate-50 border border-slate-200/80 rounded-2xl p-5 flex flex-col justify-between shadow-sm hover:border-[#7042f4]/40 transition-all">
+                        <div class="space-y-3">
+                            <div class="flex justify-between items-center text-[10px] font-mono">
+                                <span class="text-[#00c6ff] font-bold">★★★★☆ (O templo do garimpo)</span>
+                                <span class="bg-white border border-slate-200 px-2 py-0.5 rounded text-slate-600 font-bold">Ross</span>
+                            </div>
+                            <h4 class="font-extrabold text-slate-900 text-sm">Ross Dress for Less (Dadeland)</h4>
+                            <p class="text-xs text-slate-500 flex items-start gap-1">
+                                <i data-lucide="map-pin" class="h-3.5 w-3.5 text-[#00c6ff] shrink-0 mt-0.5"></i>
+                                <span>8605 S Dixie Hwy, Miami, FL 33143</span>
+                            </p>
+                            <div class="bg-white p-3 rounded-lg text-xs border border-slate-200 shadow-inner">
+                                <span class="text-[#7042f4] font-bold block text-[10px] uppercase tracking-wider mb-1">Especialidade:</span>
+                                <p class="text-slate-600 text-xs leading-relaxed">Tênis de marca ($15-$30), roupas casuais masculinas e acessórios.</p>
+                            </div>
+                        </div>
+                        <div class="mt-4 pt-3 border-t border-slate-200/60 text-[11px] text-slate-500 italic">
+                            Exige paciência para procurar nas araras por tamanho. Dica de ouro: os estoques são repostos nas terças e quartas pela manhã. Cheguem cedo!
+                        </div>
+                    </div>
+
+                    <!-- MARSHALLS -->
+                    <div class="bg-slate-50 border border-slate-200/80 rounded-2xl p-5 flex flex-col justify-between shadow-sm hover:border-[#7042f4]/40 transition-all">
+                        <div class="space-y-3">
+                            <div class="flex justify-between items-center text-[10px] font-mono">
+                                <span class="text-[#00c6ff] font-bold">★★★★★ (Ótima curadoria)</span>
+                                <span class="bg-white border border-slate-200 px-2 py-0.5 rounded text-slate-600 font-bold">Marshalls</span>
+                            </div>
+                            <h4 class="font-extrabold text-slate-900 text-sm">Marshalls (Miracle Marketplace)</h4>
+                            <p class="text-xs text-slate-500 flex items-start gap-1">
+                                <i data-lucide="map-pin" class="h-3.5 w-3.5 text-[#00c6ff] shrink-0 mt-0.5"></i>
+                                <span>3301 Coral Way, Coral Gables, FL 33134</span>
+                            </p>
+                            <div class="bg-white p-3 rounded-lg text-xs border border-slate-200 shadow-inner">
+                                <span class="text-[#7042f4] font-bold block text-[10px] uppercase tracking-wider mb-1">Especialidade:</span>
+                                <p class="text-slate-600 text-xs leading-relaxed">Perfumes importados, roupas sociais e carteiras de couro.</p>
+                            </div>
+                        </div>
+                        <div class="mt-4 pt-3 border-t border-slate-200/60 text-[11px] text-slate-500 italic">
+                            Uma das unidades preferidas dos locais. Por não ser tão visada por turistas de South Beach, guarda excelentes achados de marcas como Polo Ralph Lauren e Calvin Klein.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SEÇÃO 3: MAQUIAGENS BARATAS -->
+            <div class="space-y-4">
+                <h3 class="text-lg font-black text-slate-900 flex items-center gap-2">
+                    <div class="bg-[#00c6ff]/10 p-1.5 rounded-lg">
+                        <i data-lucide="heart" class="text-[#00c6ff] h-5 w-5"></i>
+                    </div>
+                    Guia de Beleza e Maquiagem Importada Barata
+                </h3>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <!-- CVS -->
+                    <div class="bg-slate-50 border border-slate-200/80 rounded-2xl p-5 space-y-4 shadow-sm hover:border-[#00c6ff]/40 transition-all">
+                        <div class="flex items-center space-x-3 border-b border-slate-200/60 pb-3">
+                            <div class="bg-white p-2 rounded-xl shadow-sm border border-slate-100">
+                                <i data-lucide="sparkles" class="h-5 w-5 text-[#00c6ff]"></i>
+                            </div>
+                            <h4 class="font-extrabold text-slate-800 text-sm">Farmácias CVS & Walgreens</h4>
+                        </div>
+                        <div class="space-y-2 text-xs text-slate-600">
+                          <div>
+                            <span class="text-slate-450 block uppercase text-[10px] font-bold">Onde ir:</span>
+                            <span class="text-slate-700 font-medium">Onipresentes em cada quarteirão de Miami Beach e ao redor do Hotel Chelsea.</span>
+                          </div>
+                          <div>
+                            <span class="text-slate-450 block uppercase text-[10px] font-bold">Marcas & Focos:</span>
+                            <span class="text-slate-700 font-medium">Maquiagens baratas e incríveis de marcas cotidianas como e.l.f., Maybelline, L'Oréal, NYX e Milani.</span>
+                          </div>
+                        </div>
+                        <div class="bg-white p-3 rounded-xl border border-slate-200 text-[11px] text-[#7042f4] leading-relaxed font-bold shadow-sm">
+                          💡 Antes de passar os produtos no caixa, digite o número do celular de vocês para registrar no programa de fidelidade grátis (Rewards). Isso libera na hora descontos do tipo "compre um e leve o segundo com 50% de desconto".
+                        </div>
+                    </div>
+
+                    <!-- TARGET -->
+                    <div class="bg-slate-50 border border-slate-200/80 rounded-2xl p-5 space-y-4 shadow-sm hover:border-[#00c6ff]/40 transition-all">
+                        <div class="flex items-center space-x-3 border-b border-slate-200/60 pb-3">
+                            <div class="bg-white p-2 rounded-xl shadow-sm border border-slate-100">
+                                <i data-lucide="sparkles" class="h-5 w-5 text-[#00c6ff]"></i>
+                            </div>
+                            <h4 class="font-extrabold text-slate-800 text-sm">Supermercado Target</h4>
+                        </div>
+                        <div class="space-y-2 text-xs text-slate-600">
+                          <div>
+                            <span class="text-slate-455 block uppercase text-[10px] font-bold">Onde ir:</span>
+                            <span class="text-slate-700 font-medium">3401 N Miami Ave, Midtown Miami, FL 33127</span>
+                          </div>
+                          <div>
+                            <span class="text-slate-455 block uppercase text-[10px] font-bold">Marcas & Focos:</span>
+                            <span class="text-slate-700 font-medium">Excelente setor exclusivo de cosméticos e skincare premium (Pixi, La Roche-Posay com ótimos preços, Laneige e seção completa de e.l.f.).</span>
+                          </div>
+                        </div>
+                        <div class="bg-white p-3 rounded-xl border border-slate-200 text-[11px] text-[#7042f4] leading-relaxed font-bold shadow-sm">
+                          💡 A Target é o melhor lugar também para comprar chocolates, snacks de viagem, eletrônicos básicos e lembrancinhas dos EUA.
+                        </div>
+                    </div>
+
+                    <!-- SEPHORA -->
+                    <div class="bg-slate-50 border border-slate-200/80 rounded-2xl p-5 space-y-4 shadow-sm hover:border-[#00c6ff]/40 transition-all">
+                        <div class="flex items-center space-x-3 border-b border-slate-200/60 pb-3">
+                            <div class="bg-white p-2 rounded-xl shadow-sm border border-slate-100">
+                                <i data-lucide="sparkles" class="h-5 w-5 text-[#00c6ff]"></i>
+                            </div>
+                            <h4 class="font-extrabold text-slate-800 text-sm">Sephora (Lincoln Road)</h4>
+                        </div>
+                        <div class="space-y-2 text-xs text-slate-600">
+                          <div>
+                            <span class="text-slate-455 block uppercase text-[10px] font-bold">Onde ir:</span>
+                            <span class="text-slate-700 font-medium">Lincoln Road, Miami Beach (a apenas 20 min a pé ou 5 min de carro do hotel).</span>
+                          </div>
+                          <div>
+                            <span class="text-slate-455 block uppercase text-[10px] font-bold">Marcas & Focos:</span>
+                            <span class="text-slate-700 font-medium">As maquiagens e produtos capilares mais cobiçados do mundo (Fenty Beauty, Rare Beauty, Charlotte Tilbury, Sol de Janeiro e Gisou).</span>
+                          </div>
+                        </div>
+                        <div class="bg-white p-3 rounded-xl border border-slate-200 text-[11px] text-[#7042f4] leading-relaxed font-bold shadow-sm">
+                          💡 Cadastrem-se gratuitamente no programa "Beauty Insider" da Sephora para resgatar amostras de luxo e brindes de aniversário com seus pontos.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SEGREDO DO CONCIERGE -->
+            <div class="bg-gradient-to-br from-slate-50 to-white border border-[#00c6ff]/20 p-6 rounded-3xl space-y-4 shadow-sm">
+                <h4 class="font-black text-slate-900 text-sm flex items-center gap-2">
+                    <div class="bg-[#00c6ff]/10 p-1.5 rounded-lg">
+                        <i data-lucide="info" class="text-[#00c6ff] h-5 w-5"></i>
+                    </div>
+                    Segredos de Economia de Grandes Marcas nos EUA:
+                </h4>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs text-slate-600">
+                    <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+                        <strong class="text-[#00c6ff] block mb-2 font-bold">Como achar a seção "The Runway"</strong>
+                        Algumas lojas da <span class="text-slate-900 font-bold">T.J. Maxx</span> possuem uma seção premium chamada <strong class="text-slate-800">The Runway</strong>. É nela que são colocadas roupas, bolsas e sapatos de altíssimo luxo (como Gucci, Valentino, Dolce & Gabbana e Versace) com até 70% de desconto.
+                    </div>
+                    <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+                        <strong class="text-[#7042f4] block mb-2 font-bold">Procure pelas etiquetas amarelas</strong>
+                        Na Ross e Marshalls, as etiquetas de remarcação são vermelhas. Porém, se você encontrar uma etiqueta <span class="text-slate-900 font-bold">amarela</span>, significa que aquele é o preço de liquidação final da peça. É ali que roupas de marca saem por $3 ou $5 dólares.
+                    </div>
+                    <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+                        <strong class="text-[#00c6ff] block mb-2 font-bold">Compre maquiagem de manhã</strong>
+                        Lotes novos de maquiagens de grife (paletas de sombra, primers, batons de marcas luxuosas) costumam chegar nas prateleiras da T.J. Maxx e Marshalls nas primeiras horas da manhã. À noite as gôndolas já estão desorganizadas.
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- ============================================== -->
+        <!-- SEÇÃO 5: GUIA DE TRÂNSITO -->
+        <!-- ============================================== -->
+        <div id="tab-transito" class="tab-content space-y-8">
+            
+            <!-- CABEÇALHO -->
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-100 pb-5">
+                <div class="flex items-center space-x-3">
+                    <div class="bg-[#00c6ff]/10 p-3 rounded-xl">
+                        <i data-lucide="car" class="h-6 w-6 text-[#00c6ff]"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-2xl font-black text-slate-900">Los Angeles: Adler Hotel & Manual de Trânsito</h2>
+                        <p class="text-slate-450 text-xs font-bold uppercase tracking-wider">Código de Trânsito da Califórnia (CVC) & Segurança</p>
+                    </div>
+                </div>
+                <div class="bg-gradient-to-r from-[#00c6ff]/10 to-[#7042f4]/10 border border-[#00c6ff]/20 px-4 py-2 rounded-xl text-xs text-[#7042f4] font-bold self-start md:self-auto">
+                    📍 Hotel: The Adler, Hollywood (6141 Franklin Ave)
+                </div>
+            </div>
+
+            <!-- CARD DO HOTEL THE ADLER -->
+            <div class="bg-slate-50 border border-slate-200/80 rounded-3xl p-6 lg:p-8 shadow-sm">
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                    
+                    <div class="space-y-3">
+                        <span class="text-[10px] font-bold text-white bg-gradient-to-r from-[#00c6ff] to-[#7042f4] px-2.5 py-1 rounded-full uppercase tracking-wider">Hospedagem em Hollywood</span>
+                        <h3 class="text-xl font-extrabold text-slate-900">The Adler Hotel</h3>
+                        <p class="text-xs text-slate-500 flex items-start gap-1">
+                            <i data-lucide="map-pin" class="h-4 w-4 text-[#00c6ff] shrink-0"></i>
+                            <span class="font-medium text-slate-700">6141 Franklin Ave, Hollywood, CA 90028</span>
+                        </p>
+                        <p class="text-xs text-slate-600 leading-relaxed font-medium">
+                            Anteriormente listado como Hollywood Franklin Hotel, possui localização excelente com fácil acesso à rodovia principal US-101 e a apenas alguns minutos de caminhada de atrações clássicas de Los Angeles. Referência direta do documento <strong class="text-slate-700">"Guia_de_Transito_Los_Angeles_Completo.pdf"</strong>.
+                        </p>
+                    </div>
+
+                    <div class="space-y-3">
+                        <h4 class="text-xs font-bold text-slate-500 uppercase tracking-wider">Distâncias Rápidas do Adler:</h4>
+                        <div class="space-y-2 text-xs text-slate-700 font-bold">
+                            <div class="flex justify-between bg-white p-2.5 rounded-xl border border-slate-200 shadow-sm">
+                                <span class="text-slate-500">Walk of Fame (Calçada da Fama)</span>
+                                <strong class="text-[#00c6ff]">3 min a pé (0.2 km)</strong>
+                            </div>
+                            <div class="flex justify-between bg-white p-2.5 rounded-xl border border-slate-200 shadow-sm">
+                                <span class="text-slate-500">Universal Studios / Bowl</span>
+                                <strong class="text-[#7042f4]">5-10 min de carro</strong>
+                            </div>
+                            <div class="flex justify-between bg-white p-2.5 rounded-xl border border-slate-200 shadow-sm">
+                                <span class="text-slate-500">Santa Monica & Venice Beach</span>
+                                <strong class="text-[#00c6ff]">30-40 min de carro</strong>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white p-5 rounded-2xl border border-slate-200 space-y-3 shadow-sm">
+                        <div class="flex items-center space-x-2 text-rose-600">
+                            <div class="bg-rose-50 p-1 rounded-lg">
+                                <i data-lucide="alert-triangle" class="h-5 w-5"></i>
+                            </div>
+                            <h4 class="text-xs font-bold uppercase tracking-wider">Segurança Contra Furtos</h4>
+                        </div>
+                        <p class="text-xs text-slate-600 leading-relaxed font-medium">
+                            A regra fundamental ao dirigir em LA é <strong class="text-slate-800 font-bold">NUNCA deixar sacolas, mochilas ou aparelhos no interior do carro</strong> ao estacionar na rua. Guardem tudo no porta-malas de forma discreta antes de chegarem ao destino final de estacionamento.
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- REGRAS DE TRÂNSITO (CALIFORNIA VEHICLE CODE) -->
+            <div class="space-y-6">
+                <h3 class="text-lg font-black text-slate-900 flex items-center gap-2">
+                    <div class="bg-[#00c6ff]/10 p-1.5 rounded-lg">
+                        <i data-lucide="navigation" class="text-[#00c6ff] h-5 w-5"></i>
+                    </div>
+                    Código de Trânsito da Califórnia (CVC) e Sinalizações
+                </h3>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    
+                    <div class="bg-slate-50 border border-slate-200/80 rounded-2xl p-6 space-y-4 shadow-sm">
+                        <h4 class="font-extrabold text-slate-800 text-sm flex items-center gap-2">
+                            <i data-lucide="check" class="text-[#00c6ff] h-4 w-4"></i> Normas Especiais dos Estados Unidos
+                        </h4>
+                        
+                        <div class="space-y-4 text-xs text-slate-600">
+                            <div class="bg-white p-3 rounded-xl border border-slate-200 shadow-sm leading-relaxed">
+                                <strong class="text-[#00c6ff] block mb-1">🚗 1. Conversão à Direita no Sinal Vermelho (Right Turn on Red)</strong>
+                                Na Califórnia, ao chegar a um semáforo fechado (vermelho), você pode fazer a conversão à direita, desde que <strong class="text-slate-800 font-bold">pare totalmente o carro por 3 segundos</strong>, dê preferência aos pedestres e carros transversais. <br />
+                                <span class="text-rose-600 font-bold">Exceção:</span> Se houver a placa <span class="font-bold">"NO TURN ON RED"</span>, você deve obrigatoriamente aguardar a luz verde.
+                            </div>
+
+                            <div class="bg-white p-3 rounded-xl border border-slate-200 shadow-sm leading-relaxed">
+                                <strong class="text-[#7042f4] block mb-1">👥 2. Faixa Carpool / HOV (High Occupancy Vehicle)</strong>
+                                Faixa da extrema esquerda das freeways delimitada por linhas amarelas duplas e um símbolo de diamante pintado no asfalto. Elas servem para veículos com <strong class="text-slate-800 font-bold">2 ou mais pessoas (2+)</strong>. <br />
+                                <span class="text-[#00c6ff] font-bold">Vantagem:</span> Como vocês estarão viajando juntos (Fernanda e Gabriel), podem e devem usar as faixas Carpool para escapar dos congestionamentos de Los Angeles de forma totalmente gratuita!
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-50 border border-slate-200/80 rounded-2xl p-6 space-y-4 shadow-sm">
+                        <h4 class="font-extrabold text-slate-800 text-sm flex items-center gap-2">
+                            <i data-lucide="shield-check" class="text-[#00c6ff] h-4 w-4"></i> Protocolo de Abordagem Policial (Pull Over)
+                        </h4>
+                        <p class="text-xs text-slate-600 leading-relaxed">
+                            Se uma viatura policial se posicionar atrás de vocês com os giroflex (luzes vermelhas e azuis) ligados, sigam com calma o protocolo padrão exigido pelas polícias da Califórnia (CHP / LAPD):
+                        </p>
+                        
+                        <ol class="space-y-2 text-xs text-slate-600 pl-4 list-decimal font-medium">
+                            <li>Sinalize e mova o veículo imediatamente para o acostamento direito mais seguro.</li>
+                            <li><strong class="text-slate-800 font-bold">Desligue o motor do veículo</strong> e abaixe completamente todos os vidros do carro.</li>
+                            <li><strong class="text-slate-800 font-bold">Mantenha ambas as mãos no volante de forma visível</strong> para o policial que se aproxima.</li>
+                            <li>Nunca faça movimentos bruscos ou procure documentos de identificação antes de o oficial solicitar explicitamente.</li>
+                            <li>CNH física brasileira atualizada é totalmente válida na Califórnia por até 6 meses.</li>
+                        </ol>
+                        <div class="bg-[#00c6ff]/5 p-3 rounded-xl border border-[#00c6ff]/10 text-xs text-slate-700 italic">
+                            Este procedimento garante a tranquilidade da abordagem e evita suspeitas de perigo pela autoridade local.
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- TABELA DE VALORES DE INFRAÇÃO E CONVERSÃO -->
+                <div class="bg-slate-50 border border-slate-200/80 rounded-2xl p-6 shadow-sm">
+                    <h4 class="font-extrabold text-slate-800 text-sm mb-4">🚨 Tabela de Multas da Califórnia (CVC) com Conversão Virtual para Reais</h4>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left text-xs text-slate-600">
+                            <thead class="text-[#7042f4] uppercase tracking-wider border-b border-slate-200">
+                                <tr>
+                                    <th class="pb-2">Infração Computada</th>
+                                    <th class="pb-2 text-center">Valor Oficial ($)</th>
+                                    <th class="pb-2 text-right">Valor em Reais (R$)</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-slate-200">
+                                <tr>
+                                    <td class="py-3">Usar celular na mão ao dirigir (1ª ocorrência)</td>
+                                    <td class="py-3 text-center text-rose-600 font-bold">$162.00</td>
+                                    <td id="fine-celular" class="py-3 text-right text-slate-600 font-bold">R$ 0,00</td>
+                                </tr>
+                                <tr>
+                                    <td class="py-3">Uso indevido da Faixa Carpool (sozinho no veículo)</td>
+                                    <td class="py-3 text-center text-rose-600 font-bold">$491.00</td>
+                                    <td id="fine-carpool" class="py-3 text-right text-slate-600 font-bold">R$ 0,00</td>
+                                </tr>
+                                <tr>
+                                    <td class="py-3">Avançar placa de STOP sem parar totalmente (Rolling Stop)</td>
+                                    <td class="py-3 text-center text-rose-600 font-bold">$238.00</td>
+                                    <td id="fine-stop" class="py-3 text-right text-slate-600 font-bold">R$ 0,00</td>
+                                </tr>
+                                <tr>
+                                    <td class="py-3">Avançar sinal vermelho convencional</td>
+                                    <td class="py-3 text-center text-rose-600 font-bold">$490.00</td>
+                                    <td id="fine-red" class="py-3 text-right text-slate-600 font-bold">R$ 0,00</td>
+                                </tr>
+                                <tr>
+                                    <td class="py-3">Estacionar em vaga reservada para PCD (Guia Azul)</td>
+                                    <td class="py-3 text-center text-rose-600 font-bold">$360.00</td>
+                                    <td id="fine-pcd" class="py-3 text-right text-slate-600 font-bold">R$ 0,00</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- REGRAS DAS CORES DE ESTACIONAMENTO (LADOT) -->
+                <div class="bg-slate-50 border border-slate-200/80 rounded-2xl p-6 space-y-4 shadow-sm">
+                    <h4 class="font-extrabold text-slate-800 text-sm">🎨 Entendendo as Cores do Meio-fio (LADOT Parking Rules)</h4>
+                    <div class="grid grid-cols-1 sm:grid-cols-4 gap-4 text-xs">
+                        <div class="bg-white p-3.5 rounded-xl border-l-4 border-red-500 shadow-sm">
+                            <span class="font-bold text-red-500 block">Vermelho (Red)</span>
+                            <span class="text-slate-600 font-medium block mt-1">Veto total. Proibido parar, estacionar ou aguardar em qualquer horário. Risco imediato de guincho.</span>
+                        </div>
+                        <div class="bg-white p-3.5 rounded-xl border-l-4 border-green-500 shadow-sm">
+                            <span class="font-bold text-green-500 block">Verde (Green)</span>
+                            <span class="text-slate-600 font-medium block mt-1">Tempo limite indicado em placas ou pintado em branco na guia (geralmente entre 15 a 30 minutos).</span>
+                        </div>
+                        <div class="bg-white p-3.5 rounded-xl border-l-4 border-blue-500 shadow-sm">
+                            <span class="font-bold text-blue-500 block">Azul (Blue)</span>
+                            <span class="text-slate-600 font-medium block mt-1">Exclusivo para motoristas PCD cadastrados. Estacionar aqui indevidamente resulta em multa de $360.</span>
+                        </div>
+                        <div class="bg-white p-3.5 rounded-xl border-l-4 border-yellow-500 shadow-sm">
+                            <span class="font-bold text-yellow-500 block">Amarelo (Yellow)</span>
+                            <span class="text-slate-600 font-medium block mt-1">Embarque, desembarque e zona de carga comercial (máximo 20 min). Evite estacionar.</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- ============================================== -->
+        <!-- SEÇÃO 6: CHECKLIST E FINANÇAS -->
+        <!-- ============================================== -->
+        <div id="tab-checklist" class="tab-content space-y-8">
+            
+            <!-- CALCULADORA FINANCEIRA -->
+            <div class="bg-gradient-to-r from-slate-50 to-white border border-slate-200 rounded-3xl p-6 lg:p-8 space-y-6 shadow-sm">
+                <div class="flex items-center space-x-3">
+                    <div class="bg-[#00c6ff]/10 p-3 rounded-xl">
+                        <i data-lucide="dollar-sign" class="text-[#00c6ff] h-6 w-6"></i>
+                    </div>
+                    <h3 class="text-xl font-extrabold text-slate-900">Calculadora Financeira Inteligente</h3>
+                </div>
+                <p class="text-xs text-slate-500 font-medium leading-relaxed">
+                    Utilize o conversor em tempo real para calcular seus orçamentos de compras na viagem. A conversão é feita baseando-se no dólar atualizado. Recomendamos uso dos cartões <strong class="text-slate-700">Nomad e Wise</strong> pela baixa incidência de IOF (1.1%) em comparação com cartões tradicionais brasileiros (4.38%).
+                </p>
+
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 items-center">
+                    <div>
+                        <label class="text-xs text-slate-500 block mb-1 uppercase font-bold tracking-wider">Quantia em Dólares (US$)</label>
+                        <div class="relative">
+                            <span class="absolute left-3 top-3 text-slate-400 text-sm font-bold">$</span>
+                            <input 
+                                type="number" 
+                                id="usd-input"
+                                placeholder="0.00"
+                                oninput="convertUsd(this.value)"
+                                class="w-full bg-white border border-slate-200 focus:border-[#00c6ff] focus:ring-1 focus:ring-[#00c6ff] rounded-xl py-2.5 pl-8 pr-4 text-slate-850 placeholder-slate-400 focus:outline-none shadow-inner"
+                            />
+                        </div>
+                    </div>
+                    <div class="text-center text-[#7042f4] font-bold text-xs uppercase tracking-widest">
+                        ➔ Taxa Ref: 1 USD = R$ <span id="usd-rate-label">5.50</span> ➔
+                    </div>
+                    <div>
+                        <label class="text-xs text-slate-500 block mb-1 uppercase font-bold tracking-wider">Quantia em Reais (R$)</label>
+                        <div class="relative">
+                            <span class="absolute left-3 top-3 text-slate-400 text-sm font-bold">R$</span>
+                            <input 
+                                type="number" 
+                                id="brl-input"
+                                placeholder="0.00"
+                                oninput="convertBrl(this.value)"
+                                class="w-full bg-white border border-slate-200 focus:border-[#7042f4] focus:ring-1 focus:ring-[#7042f4] rounded-xl py-2.5 pl-10 pr-4 text-slate-850 placeholder-slate-400 focus:outline-none shadow-inner"
+                            />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CHECKLIST DE MALAS -->
+            <div class="bg-slate-50 border border-slate-200/80 rounded-3xl p-6 lg:p-8 space-y-6 shadow-sm">
+                <div class="flex items-center justify-between border-b border-slate-200/60 pb-4">
+                    <div class="flex items-center space-x-3">
+                        <i data-lucide="check-square" class="text-[#7042f4] h-6 w-6"></i>
+                    </div>
+                    <span id="checklist-counter" class="text-xs uppercase tracking-widest bg-[#7042f4]/15 border border-[#7042f4]/20 text-[#7042f4] px-3 py-1 rounded-full font-bold shadow-sm">
+                        0 de 12 Marcados
+                    </span>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="checklist-container">
+                    <!-- Gerado Dinamicamente por JS -->
+                </div>
+            </div>
+
+            <!-- PROTOCOLO DE GORJETAS (TIPS) -->
+            <div class="bg-slate-50 border border-slate-200/80 rounded-3xl p-6 lg:p-8 space-y-4 shadow-sm">
+                <h4 class="font-extrabold text-slate-900 text-base flex items-center gap-2">
+                    <div class="bg-[#7042f4]/10 p-1.5 rounded-lg">
+                        <i data-lucide="info" class="text-[#7042f4] h-5 w-5"></i>
+                    </div>
+                    Entendendo as Gorjetas (Tips) nos EUA
+                </h4>
+                <p class="text-xs text-slate-600 leading-relaxed font-medium">
+                    O pagamento de gorjetas é fundamental na cultura de prestação de serviços nos Estados Unidos, correspondendo ao complemento salarial de muitos profissionais locais. Não dar ou reduzir drasticamente é interpretado como um sinal de erro grave de serviço.
+                </p>
+                
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs leading-relaxed font-medium text-slate-600">
+                    <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+                        <span class="font-extrabold text-[#00c6ff] block mb-2 text-sm">🍔 Restaurantes (Serviço de Mesa)</span>
+                        <span><strong>18% a 20%</strong> sobre o valor total. Em restaurantes turísticos de South Beach, verifiquem se já está incluída na conta como "Gratuity" ou "Service Charge".</span>
+                    </div>
+                    <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+                        <span class="font-extrabold text-[#00c6ff] block mb-2 text-sm">🍸 Bares & Balcões de Bebida</span>
+                        <span><strong>US$ 1.00 a US$ 2.00</strong> por drink pedido ao bartender. Caso paguem em notas de dinheiro, basta deixar o troco ou as moedas no potinho do balcão.</span>
+                    </div>
+                    <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+                        <span class="font-extrabold text-[#7042f4] block mb-2 text-sm">🚕 Uber, Lyft & Manobristas</span>
+                        <span><strong>15% a 18%</strong> aplicados direto pelo app do Uber após a viagem. Para os manobristas de hotéis e restaurantes, costuma-se dar <strong>US$ 3.00 a US$ 5.00</strong> in dinheiro na devolução da chave.</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="border-t border-slate-100 mt-16 bg-white py-8 px-4 text-center text-xs text-slate-400">
+        <div class="max-w-7xl mx-auto space-y-3">
+            <p class="font-medium">Este guia interativo exclusivo foi desenvolvido sob medida para Fernanda & Gabriel pela assessoria Blumiles.</p>
+            <p>© 2026 Blumiles Private Experience. Todos os direitos reservados. Ótima viagem!</p>
+            <div class="flex items-center justify-center space-x-2 text-[9px] text-[#00c6ff]/80 uppercase tracking-widest font-extrabold pt-2">
+                <span>Miami</span>
+                <span>•</span>
+                <span>Nova York</span>
+                <span>•</span>
+                <span>Los Angeles</span>
+            </div>
+        </div>
+    </footer>
+
+    <!-- LOGIC SCRIPT -->
+    <script>
+        // Câmbio referencial para os cálculos (atualizado para 5.50 conforme feedback visual)
+        const usdRate = 5.50;
+
+        // Lista de checklist
+        let checklistData = [
+            { id: 1, text: 'Passaportes válidos por mais de 6 meses', category: 'Documentos', checked: true },
+            { id: 2, text: 'Vistos Americanos impressos e válidos', category: 'Documentos', checked: true },
+            { id: 3, text: 'Apólices do Seguro Viagem salvas no celular', category: 'Segurança', checked: false },
+            { id: 4, text: 'Reservas de hotéis salvas em PDF/Impressas (Chelsea, OYO, The Adler)', category: 'Documentos', checked: false },
+            { id: 5, text: 'Cartões Wise e Nomad carregados e físicos em mãos', category: 'Finanças', checked: false },
+            { id: 6, text: 'Cerca de US$ 150 em espécie (notas de $1, $5 e $10 para gorjetas)', category: 'Finanças', checked: false },
+            { id: 7, text: 'Habilitação de chip internacional eSIM configurado no celular', category: 'Conectividade', checked: false },
+            { id: 8, text: 'Adaptador universal de tomadas (Padrão americano de pinos chatos)', category: 'Bagagem', checked: false },
+            { id: 9, text: 'Mapas offline de Miami, NY e LA salvos no Google Maps', category: 'Tecnologia', checked: false },
+            { id: 10, text: 'Garrafa d\'água térmica (Agosto é o pico do verão nos EUA)', category: 'Cuidados', checked: false },
+            { id: 11, text: 'Capa de chuva leve ou guarda-chuva compacto para NY e Miami', category: 'Bagagem', checked: false },
+            { id: 12, text: 'Muda de roupas extras na mala de mão por precaução', category: 'Bagagem', checked: false },
+        ];
+
+        // 1. Countdown timer to August 3rd, 2026, 18:20:00
+        function initCountdown() {
+            const targetDate = new Date('2026-08-03T18:20:00').getTime();
+
+            function update() {
+                const now = new Date().getTime();
+                const diff = targetDate - now;
+
+                if (diff > 0) {
+                    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+                    const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+
+                    document.getElementById('days').textContent = days + 'd';
+                    document.getElementById('hours').textContent = hours + 'h';
+                    document.getElementById('minutes').textContent = minutes + 'm';
+                } else {
+                    document.getElementById('days').textContent = '0d';
+                    document.getElementById('hours').textContent = '0h';
+                    document.getElementById('minutes').textContent = '0m';
+                }
+            }
+            update();
+            setInterval(update, 60000);
+        }
+
+        // 2. Tabs Switcher
+        function switchTab(tabId) {
+            // Hide all contents
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+
+            // Deactivate all buttons
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.className = 'tab-btn flex items-center justify-center gap-2 px-2 py-3 rounded-xl text-[11px] font-bold uppercase tracking-wider transition-all duration-300 bg-slate-50 hover:bg-slate-100 text-slate-600 hover:text-slate-900 border border-slate-200/50';
+            });
+
+            // Activate current tab content
+            document.getElementById('tab-' + tabId).classList.add('active');
+
+            // Highlight selected button
+            document.getElementById('btn-' + tabId).className = 'tab-btn flex items-center justify-center gap-2 px-2 py-3 rounded-xl text-[11px] font-bold uppercase tracking-wider transition-all duration-300 bg-gradient-to-r from-[#00c6ff] to-[#7042f4] text-white shadow-md';
+            
+            // Reparse Lucide icons
+            lucide.createIcons();
+            
+            // Scroll to the top of body smoothly
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // 3. Currency conversion
+        function convertUsd(val) {
+            const brlInput = document.getElementById('brl-input');
+            if (val === '') {
+                brlInput.value = '';
+            } else {
+                brlInput.value = (parseFloat(val) * usdRate).toFixed(2);
+            }
+        }
+
+        function convertBrl(val) {
+            const usdInput = document.getElementById('usd-input');
+            if (val === '') {
+                usdInput.value = '';
+            } else {
+                usdInput.value = (parseFloat(val) / usdRate).toFixed(2);
+            }
+        }
+
+        // Pre-render California fines
+        function preCalculateFines() {
+            document.getElementById('fine-celular').textContent = 'R$ ' + (162.00 * usdRate).toFixed(2);
+            document.getElementById('fine-carpool').textContent = 'R$ ' + (491.00 * usdRate).toFixed(2);
+            document.getElementById('fine-stop').textContent = 'R$ ' + (238.00 * usdRate).toFixed(2);
+            document.getElementById('fine-red').textContent = 'R$ ' + (490.00 * usdRate).toFixed(2);
+            document.getElementById('fine-pcd').textContent = 'R$ ' + (360.00 * usdRate).toFixed(2);
+        }
+
+        // 4. Checklist rendering
+        function renderChecklist() {
+            const container = document.getElementById('checklist-container');
+            container.innerHTML = '';
+
+            let checkedCount = 0;
+
+            checklistData.forEach(item => {
+                if (item.checked) checkedCount++;
+
+                const card = document.createElement('div');
+                card.onclick = () => toggleChecklistItem(item.id);
+                card.className = `flex items-start space-x-3 p-4 rounded-xl border cursor-pointer transition-all duration-300 ${
+                    item.checked 
+                    ? 'bg-white border-slate-200 opacity-60' 
+                    : 'bg-white border-slate-200 hover:border-cyan-400 shadow-sm'
+                }`;
+
+                card.innerHTML = `
+                    <div class="mt-0.5 w-5 h-5 rounded-lg border flex items-center justify-center transition-all ${
+                        item.checked 
+                        ? 'bg-gradient-to-tr from-[#00c6ff] to-[#7042f4] border-transparent text-white' 
+                        : 'border-slate-300'
+                    }">
+                        ${item.checked ? '<i data-lucide="check" class="h-3.5 w-3.5 stroke-[3]"></i>' : ''}
+                    </div>
+                    <div class="space-y-1">
+                        <span class="text-[10px] font-bold uppercase tracking-widest block ${
+                            item.checked ? 'text-slate-400' : 'text-[#00c6ff]'
+                        }">${item.category}</span>
+                        <span class="text-xs block font-bold ${
+                            item.checked ? 'line-through text-slate-400' : 'text-slate-800'
+                        }">${item.text}</span>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+
+            document.getElementById('checklist-counter').textContent = `${checkedCount} de ${checklistData.length} Marcados`;
+            lucide.createIcons();
+        }
+
+        function toggleChecklistItem(id) {
+            checklistData = checklistData.map(item => {
+                if (item.id === id) {
+                    return { ...item, checked: !item.checked };
+                }
+                return item;
+            });
+            renderChecklist();
+        }
+
+        // Start on load
+        window.onload = function() {
+            lucide.createIcons();
+            initCountdown();
+            preCalculateFines();
+            renderChecklist();
+            document.getElementById('usd-rate-label').textContent = usdRate.toFixed(2);
+        };
+    </script>
+</body>
+</html>
